@@ -1,0 +1,24 @@
+Do the below on each VM.
+
+1. Setup and Build
+    a. Install Go as per website instructions if necessary, using the default paths
+    b. cd ~
+    c. export GOPATH=$HOME/go
+
+    e. mkdir go
+    f. mkdir go/bin
+
+
+2. Running
+    a. First, perform all commands indicated by 1. and ensure all environmental variables are set correctly
+    b. cd ~
+    c. ./MP2Client Please see the code for the configuration file format. The configuration file contains a list of
+        introducers and is located at MP2/MP2Daemon/config.json.
+    d. To join the group, type join and press Enter.
+       To leave the group, type leave and press Enter. Note that this will quit the program - restart the program to
+       rejoin. A short wait may be required during to lingering sockets.
+       To show the current membership list, type list and press Enter.
+       To show the current id, type id and press Enter.
+
+#To​ ​ensure​ ​total​ ​ordering,​ ​the​ ​master​ ​node​ ​for​ ​a​ ​file​ ​uses​ ​a​ ​combination​ ​of​ ​mutex​ ​locks​ ​and​ ​lockfiles. When​ ​a​ ​write​ ​occurs,​ ​the​ ​master​ ​node​ ​for​ ​the​ ​file​ ​requests​ ​the​ ​mutex​ ​lock,​ ​and​ ​with​ ​the​ ​mutex​ ​lock,​ ​creates​ ​a lockfile​ ​for​ ​the​ ​file​ ​being​ ​written.​ ​It​ ​then​ ​releases​ ​the​ ​mutex,​ ​allowing​ ​operations​ ​on​ ​other​ ​files​ ​to​ ​continue occurring.​ ​The​ ​lockfile​ ​functions​ ​as​ ​a​ ​per-file​ ​mutex,​ ​so​ ​no​ ​modifications​ ​to​ ​a​ ​file​ ​can​ ​be​ ​made​ ​in​ ​a​ ​routine unless​ ​that​ ​routine​ ​is​ ​the​ ​one​ ​who​ ​created​ ​the​ ​lockfile.​ ​Since​ ​there​ ​is​ ​only​ ​one​ ​master​ ​node​ ​for​ ​a​ ​given​ ​filename, and​ ​inside​ ​the​ ​master​ ​node​ ​only​ ​one​ ​routine​ ​able​ ​to​ ​operate​ ​on​ ​the​ ​file​ ​at​ ​a​ ​given​ ​time,​ ​all​ ​updates​ ​to​ ​a​ ​file happen​ ​in​ ​the​ ​same​ ​order​ ​on​ ​all​ ​3​ ​nodes,​ ​since​ ​the​ ​master​ ​node​ ​is​ ​the​ ​one​ ​responsible​ ​for​ ​requesting​ ​changes​ ​to files​ ​on​ ​the​ ​other​ ​nodes.
+Files​ ​are​ ​stored​ ​with​ ​their​ ​hashed​ ​filenames,​ ​not​ ​their​ ​sdfs​ ​filenames,​ ​which​ ​prevents​ ​problems​ ​resulting from​ ​special​ ​characters​ ​such​ ​as​ ​/.​ ​Each​ ​file​ ​is​ ​accompanied​ ​by​ ​a​ ​metadata​ ​file​ ​containing​ ​the​ ​sdfs​ ​filename​ ​for that​ ​file,​ ​which​ ​allows​ ​the​ ​store​ ​command​ ​to​ ​list​ ​all​ ​the​ ​files​ ​stored​ ​at​ ​the​ ​local​ ​node.
